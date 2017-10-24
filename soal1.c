@@ -9,6 +9,22 @@
 
 pthread_t tid[10];
 
+void menuPenjual()
+{
+	printf("Senjata: MP4A1, PM2-V1, SPR-3, SS2-V5, SPG1-V3, MINE\n");
+	printf("1. Lihat stock senjata\n");
+	printf("2. Tambah stock senjata\n");
+	printf("Pilihan: ");
+}
+
+void menuPembeli()
+{
+	printf("Senjata: MP4A1, PM2-V1, SPR-3, SS2-V5, SPG1-V3, MINE\n");
+	printf("1. Lihat stock senjata\n");
+	printf("2. Beli senjata\n");
+	printf("Pilihan: ");
+}
+
 int main(void)
 {
 
