@@ -20,6 +20,7 @@ int main()
             fprintf(stderr,"Error - pthread_create() return code: %d\n",iret);
             exit(EXIT_FAILURE);
         }
+     }
 
   exit(EXIT_SUCCESS);
 }
