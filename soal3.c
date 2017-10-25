@@ -20,3 +20,6 @@ void *minstat_kepiting(void *ptr){
 void *addstat_lohan(void *ptr){
    stat_lohan+=10;
 }
+void *addstat_kepiting(void *ptr){
+   stat_kepiting+=10;
+}
