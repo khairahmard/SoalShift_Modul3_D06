@@ -11,3 +11,10 @@ void *minstat_lohan(void *ptr){
        stat_lohan-=15;
    }
 }
+void *minstat_kepiting(void *ptr){
+   while(1){
+       sleep(20);
+       stat_kepiting-=10;
+   }
+}
+
