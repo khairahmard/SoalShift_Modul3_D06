@@ -28,3 +28,15 @@ int main(){
     pthread_t thread[4];
     pthread_create(&(thread[2]),NULL,minstat_lohan,NULL);
     pthread_create(&(thread[3]),NULL,minstat_kepiting,NULL);
+    while(1){
+        char x;
+        scanf("%c",&x);
+        if (x=='l'){
+           pthread_create(&(thread[0]),NULL,addstat_lohan,NULL);
+        }
+        else if (x=='k'){
+           pthread_create(&(thread[1]),NULL,addstat_kepiting,NULL);
+        }
+        printf ("Status Lohan = %d Status Kepiting = %d\n", stat_lohan,stat_kepiting);
+    }
+}
