@@ -1,26 +1,27 @@
-#include <string.h>
 #include <stdio.h>
+#include <string.h>
+#include <pthread.h>
 #include <stdlib.h>
-#include <pthread.h> //library thread
+#include <unistd.h>
 
-void *print_message_function( void *ptr );
+void *cari(void *arg)
 {
-}
+	int counter = 0;
+	char ygdicari[500], text[500];
 
-int main()
-{
-     pthread_t thread[50];//inisialisasi awal
-     const char *message = "thread";
-     int  iret;
+	FILE *novel;
+	novel = fopen("Novel.txt", "r");
 
-     while(1){
-        iret = pthread_create( &thread, NULL, print_message_function, (void*) message);//membuat thread
-        if(iret)//jika eror
-        {
-            fprintf(stderr,"Error - pthread_create() return code: %d\n",iret);
-            exit(EXIT_FAILURE);
-        }
-     }
+	strcpy(ygdicari, arg);
 
-  exit(EXIT_SUCCESS);
+	while(fscanf(novel, "%s", text) != EOF)
+	{
+		if(strstr(text, ygdicari) != NULL){
+			counter++;
+		}
+	}
+
+	fclose(novel);
+
+	printf("%s : %d\n", ygdicari, counter);
 }
