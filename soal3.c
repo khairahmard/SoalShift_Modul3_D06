@@ -25,19 +25,19 @@ void *addstat_kepiting(void *ptr){
 }
 
 int main(){
-    pthread_t thread[4];
+    pthread_t thread_lm,thread_la,thread_km,thread_ka;
 
     while(1){
-        pthread_create(&(thread[2]),NULL,minstat_lohan,NULL);
-        pthread_create(&(thread[3]),NULL,minstat_kepiting,NULL);
+        pthread_create(&thread_lm,NULL,minstat_lohan,NULL);
+        pthread_create(&thread_km,NULL,minstat_kepiting,NULL);
 
         char x;
         scanf("%c",&x);
         if (x=='l'){
-           pthread_create(&(thread[0]),NULL,addstat_lohan,NULL);
+           pthread_create(&thread_la,NULL,addstat_lohan,NULL);
         }
         else if (x=='k'){
-           pthread_create(&(thread[1]),NULL,addstat_kepiting,NULL);
+           pthread_create(&thread_ka,NULL,addstat_kepiting,NULL);
         }
         printf ("Status Lohan = %d Status Kepiting = %d\n", stat_lohan,stat_kepiting);
         if(stat_lohan>100||stat_lohan<=0||stat_kepiting>100||stat_kepiting<=0){
