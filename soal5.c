@@ -10,7 +10,6 @@ void *print_message_function( void *ptr );
 int main()
 {
      pthread_t thread[50];//inisialisasi awal
-     const char *message = "thread";
      int  iret;
 
      while(1){
