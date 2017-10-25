@@ -26,9 +26,11 @@ void *addstat_kepiting(void *ptr){
 
 int main(){
     pthread_t thread[4];
-    pthread_create(&(thread[2]),NULL,minstat_lohan,NULL);
-    pthread_create(&(thread[3]),NULL,minstat_kepiting,NULL);
+   // pthread_create(&(thread[2]),NULL,minstat_lohan,NULL);
+   // pthread_create(&(thread[3]),NULL,minstat_kepiting,NULL);
     while(1){
+        pthread_create(&(thread[2]),NULL,minstat_lohan,NULL);
+        pthread_create(&(thread[3]),NULL,minstat_kepiting,NULL);
         char x;
         scanf("%c",&x);
         if (x=='l'){
@@ -38,5 +40,8 @@ int main(){
            pthread_create(&(thread[1]),NULL,addstat_kepiting,NULL);
         }
         printf ("Status Lohan = %d Status Kepiting = %d\n", stat_lohan,stat_kepiting);
+        if(stat_lohan>100||stat_lohan<=0||stat_kepiting>100||stat_kepiting<=0){
+           printf("Game Berakhir");
+        }
     }
 }
