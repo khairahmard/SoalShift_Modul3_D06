@@ -42,6 +42,7 @@ int main(){
         printf ("Status Lohan = %d Status Kepiting = %d\n", stat_lohan,stat_kepiting);
         if(stat_lohan>100||stat_lohan<=0||stat_kepiting>100||stat_kepiting<=0){
            printf("Game Berakhir");
+           break;
         }
     }
 }
