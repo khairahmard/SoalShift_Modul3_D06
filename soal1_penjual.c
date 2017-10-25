@@ -21,64 +21,6 @@ struct input // berisi nama weapon dan stock
 	char nama[8];
 }
 
-/*void *fungsiPenjual(void *arg) {
-
-	if(pthread_equal(id,tid[1])){
-		if(strcmp(input->nama, "MP4A1") == 0)
-                {
-                        if(*mp4a1 != 0)
-                                printf("%s %d\n", input->nama, *mp4a1);
-                } else if(strcmp(input->nama, "PM2-V1") == 0)
-                {
-                        if(*pm2v1 != 0)
-                                printf("%s %d\n", input->nama, *pm2v1);
-                } else if(strcmp(input->nama, "SPR-3") == 0)
-                {
-                        if(*spr3 != 0)
-                               	printf("%s %d\n", input->nama, *spr3);
-                } else if(strcmp(input->nama, "SS2-V5") == 0)
-                {
-                        if(*ss2v5 != 0)
-                                printf("%s %d\n", input->nama, *ss2v5);
-		} else if(strcmp(input->nama, "SPG1-V3") == 0)
-                {
-                        if(*spg1v3 != 0)
-                                printf("%s %d\n", input->nama, *spg1v3);
-                } else if(strcmp(input->nama, "MINE") == 0)
-                {
-                        if(*mine != 0)
-                                printf("%s %d\n", input->nama, *mine);
-                }
-        }
-	else if(pthread_equal(id,tid[2])){
-		if(strcmp(input->nama, "MP4A1") == 0)
-		{
-			if(*mp4a1 != 0) {*mp4a1 += input->jumlah; printf("Jumlah MP4A1 di stock = %d barang", *mp4a1);}
-			else {*mp4a1 = input->jumlah; printf("Jumlah MP4A1 di stock = %d barang", *mp4a1);}
-		} else if(strcmp(input->nama, "PM2-V1") == 0)
-                {
-                        if(*pm2v1 != 0) {*pm2v1 += input->jumlah; printf("Jumlah PM2-V1 di stock = %d barang", *pm2v1);}
-                        else {*pm2v1 = input->jumlah; printf("Jumlah PM2-V1 di stock = %d barang", *pm2v1);}
-                } else if(strcmp(input->nama, "SPR-3") == 0)
-                {
-                       	if(*spr3 != 0) {*spr3 += input->jumlah; printf("Jumlah SPR-3 di stock = %d barang", *spr3);}
-                        else {*spr3 = input->jumlah; printf("Jumlah SPR-3 di stock = %d barang", *spr3);}
-                } else if(strcmp(input->nama, "SS2-V5") == 0)
-                {
-                        if(*ss2v5 != 0) {*ss2v5 += input->jumlah; printf("Jumlah SS2-V5 di stock = %d barang", *ss2v5);}
-                        else {*ss2v5 = input->jumlah; printf("Jumlah SS2-V5 di stock = %d barang", *ss2v5);}
-                } else if(strcmp(input->nama, "SPG1-V3") == 0)
-                {
-                        if(*spg1v3 != 0) {*spg1v3 += input->jumlah; printf("Jumlah SPG1-V3 di stock = %d barang", *spg1v3);}
-                        else {*spg1v3 = input->jumlah; printf("Jumlah SPG1-V3 di stock = %d barang", *spg1v3);}
-                } else if(strcmp(input->nama, "MINE") == 0)
-                {
-                        if(*spr3 != 0) {*spr3 += input->jumlah; printf("Jumlah SPR-3 di stock = %d barang", *spr3);}
-                        else {*spr3 = input->jumlah; printf("Jumlah SPR-3 di stock = %d barang", *spr3);}
-                }
-	}
-}*/
-
 int main(void)
 {
 	struct input *inputan = malloc(sizeof(struct input));
@@ -97,46 +39,65 @@ int main(void)
 	strcpy(inputan[5].nama = "MINE");
 
 	//inisialisasi stock weapon
-	inputan[0].jumlah = "MP4A1");
-	inputan[1].jumlah = "PM2-V1");
-	inputan[2].jumlah = "SPR-3");
-	inputan[3].jumlah = "SS2-V5");
-	inputan[4].jumlah = "SPG1-V3");
-	inputan[5].jumlah = "MINE");
+	inputan[0].jumlah = 0;
+	inputan[1].jumlah = 0;
+	inputan[2].jumlah = 0;
+	inputan[3].jumlah = 0;
+	inputan[4].jumlah = 0;
+	inputan[5].jumlah = 0;
 
-	/*while(1){
-		printf("Penjual atau pembeli? ");
-		scanf("%s", pengguna);
+	int op, i, tambah;
+	char name[8];
 
-		int op, err = 0;
+	while(1){
+		
+		menuPenjual();
 
-		if(strcmp(pengguna, "penjual") == 0)
-		{
-			menuPenjual();
+		scanf("%d", &op);
+		printf("\n");
+		
+		if(op == 1){
+			for(i = 0; i < 6; i++) {
+				if(inputan.jumlah > 0) printf("%s %d", inputan[i].nama, inputan[i].jumlah);
+			} 
+		} else if(op == 2){
+			scanf("%s %d", name, &tambah);
 
-			scanf("%d", &op);
-			printf("\n");
-			scanf("%s %d", input->nama, input->jumlah);
-			
-			err=pthread_create(&(tid[op]), NULL, fungsiPenjual, input);
-			if (err!=0)
+			if(strcmp(name, "MP4A1") == 0)
 			{
-				printf("\nCan't create thread: [%s]", strerror(err));
-			}
-		} else if (strcmp(pengguna, "pembeli") == 0) {
-			menuPembeli();
-
-			scanf("%d", &op);
-			printf("\n");
-			scanf("%s %d", input->nama, input->jumlah);
-
-			err=pthread_create(&(tid[op]), NULL, fungsiPembeli, input);
-
-			if (err!=0)
-                        {
-                                printf("\nCan't create thread: [%s]", strerror(err));
-                        }
+				inputan[0].jumlah += tambah;
+				printf("Jumlah MP4A1 di stock = %d barang", inputan[0].jumlah);
+				//else {inputan[0].jumlah = tambah; printf("Jumlah MP4A1 di stock = %d barang", inputan[0].jumlah);}
+			} else if(strcmp(name, "PM2-V1") == 0)
+		        {
+		                inputan[1].jumlah += tambah;
+				printf("Jumlah PM2-V1 di stock = %d barang", inputan[1].jumlah);
+		                //else {inputan[1].jumlah = tambah; printf("Jumlah PM2-V1 di stock = %d barang", inputan[1].jumlah);}
+		        } else if(strcmp(name, "SPR-3") == 0)
+		        {
+		               	inputan[2].jumlah += tambah;
+				printf("Jumlah SPR-3 di stock = %d barang", inputan[2].jumlah);
+		                //else {inputan[2].jumlah = tambah; printf("Jumlah SPR-3 di stock = %d barang", inputan[2].jumlah);}
+		        } else if(strcmp(name, "SS2-V5") == 0)
+		        {
+		                inputan[3].jumlah += tambah;
+				printf("Jumlah SS2-V5 di stock = %d barang", inputan[3].jumlah);
+		                //else {inputan[3].jumlah = tambah; printf("Jumlah SS2-V5 di stock = %d barang", inputan[3].jumlah);}
+		        } else if(strcmp(name, "SPG1-V3") == 0)
+		        {
+		                inputan[4].jumlah += tambah;
+				printf("Jumlah SPG1-V3 di stock = %d barang", inputan[4].jumlah);
+		                //else {inputan[4].jumlah = tambah; printf("Jumlah SPG1-V3 di stock = %d barang", inputan[4].jumlah);}
+		        } else if(strcmp(name, "MINE") == 0)
+		        {
+		                inputan[5].jumlah += tambah;
+				printf("Jumlah SPR-3 di stock = %d barang", inputan[5].jumlah);
+		                //else {inputan[5].jumlah = tambah; printf("Jumlah SPR-3 di stock = %d barang", inputan[5].jumlah);}
+		        }
 		}
-	}*/
-    return 0;
+	}
+shmdt(inputan);
+shmctl(shmid, IPC_RMID, NULL);
+
+return 0;
 }
