@@ -25,3 +25,18 @@ void *cari(void *arg)
 
 	printf("%s : %d\n", ygdicari, counter);
 }
+
+int main(int argc, char *argv[])
+{
+	int i;
+
+	for(i = 0; i < argc; i++) {
+		pthread_create(&(tid[i]), NULL, &cari, (void*)argv[i]);
+	}
+
+	for(i = 0; i < argc; i++) {
+		pthread_join(tid[i], NULL);
+	}
+
+	return 0;
+}
