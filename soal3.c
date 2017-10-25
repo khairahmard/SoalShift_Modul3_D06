@@ -23,3 +23,8 @@ void *addstat_lohan(void *ptr){
 void *addstat_kepiting(void *ptr){
    stat_kepiting+=10;
 }
+
+int main(){
+    pthread_t thread[4];
+    pthread_create(&(thread[2]),NULL,minstat_lohan,NULL);
+    pthread_create(&(thread[3]),NULL,minstat_kepiting,NULL);
