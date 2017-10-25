@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+pthread_t tid[100];
+
 void *cari(void *arg)
 {
 	int counter = 0;
@@ -30,11 +32,11 @@ int main(int argc, char *argv[])
 {
 	int i;
 
-	for(i = 0; i < argc; i++) {
-		pthread_create(&(tid[i]), NULL, &cari, (void*)argv[i]);
+	for(i = 1; i < argc; i++) {
+		pthread_create(&tid[i], NULL, &cari, (void*)argv[i]);
 	}
 
-	for(i = 0; i < argc; i++) {
+	for(i = 1; i < argc; i++) {
 		pthread_join(tid[i], NULL);
 	}
 
