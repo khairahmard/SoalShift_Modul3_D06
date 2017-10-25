@@ -28,18 +28,21 @@ void menuPembeli()
 struct input
 {
 	int jumlah;
-	char nama[10];
+	char *nama;
 }
 
 void *fungsiPenjual(void *arg) {
 	pthread_t id=pthread_self();
+	
+	struct input *input;
+	input = (struct input *) arg;
 
 	key_t key = 1234;
 	int shmid = shmget(key, sizeof(int), IPC_CREAT | 0666);
 
 	static int *mp4a1, *pm2v1, *spr3, *ss2v5, *spg1v3, *mine;
-	int jumlah;
-	char nama[10];
+	//int jumlah;
+	//char nama[10];
 
 	mp4a1 = shmat(shmid, NULL, 0);
 	spr3 = shmat(shmid, NULL, 0);
@@ -56,69 +59,67 @@ void *fungsiPenjual(void *arg) {
 	if (mine == NULL) *mine = 0;
 
 	if(pthread_equal(id,tid[1])){
-		scanf("%s %d", nama, &jumlah);
-
-		if(strcmp(nama, "MP4A1") == 0)
+		if(strcmp(input->nama, "MP4A1") == 0)
                 {
                         if(*mp4a1 != 0)
-                                printf("%s %d\n", nama, *mp4a1);
-                } else if(strcmp(nama, "PM2-V1") == 0)
+                                printf("%s %d\n", input->nama, *mp4a1);
+                } else if(strcmp(input->nama, "PM2-V1") == 0)
                 {
                         if(*pm2v1 != 0)
-                                printf("%s %d\n", nama, *pm2v1);
-                } else if(strcmp(nama, "MP4A1") == 0)
+                                printf("%s %d\n", input->nama, *pm2v1);
+                } else if(strcmp(input->nama, "SPR-3") == 0)
                 {
                         if(*spr3 != 0)
-                               	printf("%s %d\n", nama, *spr3);
-                } else if(strcmp(nama, "MP4A1") == 0)
+                               	printf("%s %d\n", input->nama, *spr3);
+                } else if(strcmp(input->nama, "SS2-V5") == 0)
                 {
                         if(*ss2v5 != 0)
-                                printf("%s %d\n", nama, *ss2v5);
-		} else if(strcmp(nama, "MP4A1") == 0)
+                                printf("%s %d\n", input->nama, *ss2v5);
+		} else if(strcmp(input->nama, "SPG1-V3") == 0)
                 {
                         if(*spg1v3 != 0)
-                                printf("%s %d\n", nama, *spg1v3);
-                } else if(strcmp(nama, "MP4A1") == 0)
+                                printf("%s %d\n", input->nama, *spg1v3);
+                } else if(strcmp(input->nama, "MINE") == 0)
                 {
                         if(*mine != 0)
-                                printf("%s %d\n", nama, *mine);
+                                printf("%s %d\n", input->nama, *mine);
                 }
         }
 	else if(pthread_equal(id,tid[2])){
-		scanf("%s %d", nama, &jumlah);
-
-		if(strcmp(nama, "MP4A1") == 0)
+		if(strcmp(input->nama, "MP4A1") == 0)
 		{
-			if(*mp4a1 != 0) {*mp4a1 += jumlah; printf("Jumlah MP4A1 di stock = %d barang", *mp4a1);}
-			else {*mp4a1 = jumlah; printf("Jumlah MP4A1 di stock = %d barang", *mp4a1);}
-		} else if(strcmp(nama, "PM2-V1") == 0)
+			if(*mp4a1 != 0) {*mp4a1 += input->jumlah; printf("Jumlah MP4A1 di stock = %d barang", *mp4a1);}
+			else {*mp4a1 = input->jumlah; printf("Jumlah MP4A1 di stock = %d barang", *mp4a1);}
+		} else if(strcmp(input->nama, "PM2-V1") == 0)
                 {
-                        if(*pm2v1 != 0) {*pm2v1 += jumlah; printf("Jumlah PM2-V1 di stock = %d barang", *pm2v1);}
-                        else {*pm2v1 = jumlah; printf("Jumlah PM2-V1 di stock = %d barang", *pm2v1);}
-                } else if(strcmp(nama, "SPR-3") == 0)
+                        if(*pm2v1 != 0) {*pm2v1 += input->jumlah; printf("Jumlah PM2-V1 di stock = %d barang", *pm2v1);}
+                        else {*pm2v1 = input->jumlah; printf("Jumlah PM2-V1 di stock = %d barang", *pm2v1);}
+                } else if(strcmp(input->nama, "SPR-3") == 0)
                 {
-                       	if(*spr3 != 0) {*spr3 += jumlah; printf("Jumlah SPR-3 di stock = %d barang", *spr3);}
-                        else {*spr3 = jumlah; printf("Jumlah SPR-3 di stock = %d barang", *spr3);}
-                } else if(strcmp(nama, "SS2-V5") == 0)
+                       	if(*spr3 != 0) {*spr3 += input->jumlah; printf("Jumlah SPR-3 di stock = %d barang", *spr3);}
+                        else {*spr3 = input->jumlah; printf("Jumlah SPR-3 di stock = %d barang", *spr3);}
+                } else if(strcmp(input->nama, "SS2-V5") == 0)
                 {
-                        if(*ss2v5 != 0) {*ss2v5 += jumlah; printf("Jumlah SS2-V5 di stock = %d barang", *ss2v5);}
-                        else {*ss2v5 = jumlah; printf("Jumlah SS2-V5 di stock = %d barang", *ss2v5);}
-                } else if(strcmp(nama, "SPG1-V3") == 0)
+                        if(*ss2v5 != 0) {*ss2v5 += input->jumlah; printf("Jumlah SS2-V5 di stock = %d barang", *ss2v5);}
+                        else {*ss2v5 = input->jumlah; printf("Jumlah SS2-V5 di stock = %d barang", *ss2v5);}
+                } else if(strcmp(input->nama, "SPG1-V3") == 0)
                 {
-                        if(*spg1v3 != 0) {*spg1v3 += jumlah; printf("Jumlah SPG1-V3 di stock = %d barang", *spg1v3);}
-                        else {*spg1v3 = jumlah; printf("Jumlah SPG1-V3 di stock = %d barang", *spg1v3);}
-                } else if(strcmp(nama, "MINE") == 0)
+                        if(*spg1v3 != 0) {*spg1v3 += input->jumlah; printf("Jumlah SPG1-V3 di stock = %d barang", *spg1v3);}
+                        else {*spg1v3 = input->jumlah; printf("Jumlah SPG1-V3 di stock = %d barang", *spg1v3);}
+                } else if(strcmp(input->nama, "MINE") == 0)
                 {
-                        if(*spr3 != 0) {*spr3 += jumlah; printf("Jumlah SPR-3 di stock = %d barang", *spr3);}
-                        else {*spr3 = jumlah; printf("Jumlah SPR-3 di stock = %d barang", *spr3);}
+                        if(*spr3 != 0) {*spr3 += input->jumlah; printf("Jumlah SPR-3 di stock = %d barang", *spr3);}
+                        else {*spr3 = input->jumlah; printf("Jumlah SPR-3 di stock = %d barang", *spr3);}
                 }
 	}
 }
+
 
 int main(void)
 {
 
 	char pengguna[10];
+	struct input *input = malloc(sizeof(struct input));
 
 	while(1){
 		printf("Penjual atau pembeli? ");
@@ -131,8 +132,10 @@ int main(void)
 			menuPenjual();
 
 			scanf("%d", &op);
+			printf("\n");
+			scanf("%s %d", input->nama, input->jumlah);
 			
-			err=pthread_create(&(tid[op]), NULL, &fungsiPenjual, NULL);
+			err=pthread_create(&(tid[op]), NULL, fungsiPenjual, input);
 			if (err!=0)
 			{
 				printf("\nCan't create thread: [%s]", strerror(err));
@@ -141,8 +144,10 @@ int main(void)
 			menuPembeli();
 
 			scanf("%d", &op);
+			printf("\n");
+			scanf("%s %d", input->nama, input->jumlah);
 
-			err=pthread_create(&(tid[op]), NULL, &fungsiPembeli, NULL);
+			err=pthread_create(&(tid[op]), NULL, fungsiPembeli, input);
 
 			if (err!=0)
                         {
