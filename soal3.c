@@ -26,11 +26,11 @@ void *addstat_kepiting(void *ptr){
 
 int main(){
     pthread_t thread[4];
-   // pthread_create(&(thread[2]),NULL,minstat_lohan,NULL);
-   // pthread_create(&(thread[3]),NULL,minstat_kepiting,NULL);
+
     while(1){
         pthread_create(&(thread[2]),NULL,minstat_lohan,NULL);
         pthread_create(&(thread[3]),NULL,minstat_kepiting,NULL);
+
         char x;
         scanf("%c",&x);
         if (x=='l'){
