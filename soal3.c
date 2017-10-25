@@ -4,3 +4,10 @@
 
 int stat_lohan=100;
 int stat_kepiting=100;
+
+void *minstat_lohan(void *ptr){
+   while(1){
+       sleep(10);
+       stat_lohan-=15;
+   }
+}
