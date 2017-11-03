@@ -4,57 +4,48 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-pthread_t tid[100];
+pthread_t tid[10];
 
 void *cari(void *arg)
 {
 	int counter = 0;
-	char ygdicari[500], text[500];
+	char buf[500], key[500];
+	strcpy(key, arg);
 
 	FILE *novel;
 	novel = fopen("Novel.txt", "r");
 
-	strcpy(ygdicari, arg);
+	
 
-	while(fscanf(novel, "%s", text) != EOF)
+	while(fscanf(novel, "%s", buf) == 1) //fgets(buf,500,novel) != NULL
 	{
-		if(strstr(text, ygdicari) != NULL){
+		if(feof(novel)) break;
+
+		if(strstr(buf, key) != NULL){
 			counter++;
 		}
 	}
 
 	fclose(novel);
 
-	printf("%s : %d\n", ygdicari, counter);
+	printf("%s : %d\n", key, counter);
 }
 
-int main(int argc, char *argv[])
+int main(int argc, const char *argv[])
 {
-<<<<<<< HEAD
-     pthread_t thread[50];//inisialisasi awal
-     int  iret;
+	int i = 1;
 
-     while(1){
-        iret = pthread_create( &thread, NULL, print_message_function, (void*) message);//membuat thread
-        if(iret)//jika eror
-        {
-            fprintf(stderr,"Error - pthread_create() return code: %d\n",iret);
-            exit(EXIT_FAILURE);
-        }
-     }
-
-  exit(EXIT_SUCCESS);
-=======
-	int i;
-
-	for(i = 1; i < argc; i++) {
+	while(i < argc){
 		pthread_create(&tid[i], NULL, &cari, (void*)argv[i]);
+		i++;
 	}
 
-	for(i = 1; i < argc; i++) {
+	i = 1;
+	
+	while(i < argc){
 		pthread_join(tid[i], NULL);
+		i++;
 	}
 
 	return 0;
->>>>>>> cd224d21d0a688562c67eb09335386711828766f
 }
